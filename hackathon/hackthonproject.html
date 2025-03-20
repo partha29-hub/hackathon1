@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Financial Insights</title>
+    <link rel="stylesheet" href="hackathonproject.css">
+    <!-- Include any external fonts or icons here -->
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="navbar">
+        <div class="logo">AI Finance</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><button onclick="window.location.href='About.html'">About</button>
+                </li>
+                <li><button onclick="window.location.href='Features.html'">Features</button>               
+               <li><button onclick="window.location.href='Contact.html'">Contact</button> 
+            </ul>
+        </nav>
+        <div class="theme-toggle">
+            <button id="theme-button">Dark Mode</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Unlock Insights from India's Financial Data with AI</h1>
+        <p>Interactive, AI-powered visualizations to make financial data simple and actionable.</p>
+        <button id="explore-button" class="cta-button">Explore Insights</button>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="features">
+        <div class="feature">
+            <h2>AI-Powered Analytics</h2>
+            <p>Leverage AI to uncover hidden trends in financial data.</p>
+        </div>
+        <div class="feature">
+            <h2>Interactive Visualizations</h2>
+            <p>Engaging charts, graphs, and dashboards.</p>
+        </div>
+        <div class="feature">
+            <h2>Real-Time Updates</h2>
+            <p>Stay updated with the latest financial insights.</p>
+        </div>
+    </section>
+
+    <!-- Live Financial Dashboard Preview Section -->
+    <section class="dashboard-preview">
+        <h2>Live Financial Dashboard Preview</h2>
+        <div id="chart-container">
+            <!-- Chart.js will render a chart here -->
+            <canvas id="financialChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    
+    <!-- Footer Section -->
+   
+    <!-- JavaScript -->
+    <script src="hackathonproject.js"></script>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.getElementById("explore-button").addEventListener("click", function() {
+            this.style.transform = "scale(0.9)";
+            this.style.transition = "transform 0.2s ease-in-out";
+            setTimeout(() => {
+                this.style.transform = "scale(1)";
+                window.location.href = "allfrnt.html";
+            }, 200);
+        });
+    </script>
+</body>
+</html>

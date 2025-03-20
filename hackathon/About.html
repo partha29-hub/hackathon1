@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AI Finance</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #00274d;
+        }
+        .mission {
+            margin-top: 30px;
+            padding: 20px;
+            background: #eef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .mission:hover {
+            background: #dde;
+        }
+        .mission p {
+            display: none;
+            margin-top: 10px;
+        }
+        .team {
+            margin-top: 30px;
+            padding: 20px;
+            background: #eef;
+            border-radius: 8px;
+        }
+        .team-members {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .member {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #00274d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>About AI Finance</h1>
+        <p>AI Finance is a powerful platform designed to simplify and visualize India's financial data using AI-driven insights.</p>
+        
+        <div class="mission" onclick="toggleMission()">
+            <h2>Our Mission & Vision (Click to Expand)</h2>
+            <p id="mission-text">Our goal is to make financial data analysis accessible, insightful, and user-friendly for individuals and businesses.</p>
+        </div>
+        
+        <div class="team">
+            <h2>Meet the Team</h2>
+            <div class="team-members" id="team-container">
+                <!-- Team members will be added dynamically using JavaScript -->
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-btn">Back to Home</a>
+    </div>
+
+    <script>
+        // Toggle Mission Section
+        function toggleMission() {
+            let missionText = document.getElementById("mission-text");
+            missionText.style.display = missionText.style.display === "none" ? "block" : "none";
+        }
+
+        // Team Members Data
+        const teamMembers = [
+            { name: 'Asish Mahapatra', role: 'Leader' },
+            { name: 'Partha Goudu', role: 'Web Designer' },
+            { name: 'Surbhi Anand', role: 'Data Analytics' },
+            { name: 'Om Choudhury', role: 'Web Designer' },
+            { name: 'Subrat Padhi', role: 'Data Researcher' }
+        ];
+
+        // Dynamically Add Team Members
+        const teamContainer = document.getElementById("team-container");
+
+        teamMembers.forEach(member => {
+            let div = document.createElement("div");
+            div.classList.add("member");
+            div.innerHTML = `<h3>${member.name}</h3><p>${member.role}</p>`;
+            teamContainer.appendChild(div);
+        });
+
+        // Initially Hide Mission Text
+        document.getElementById("mission-text").style.display = "none";
+    </script>
+</body>
+</html>

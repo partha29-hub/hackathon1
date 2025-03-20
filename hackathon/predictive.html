@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Economic Insights</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+        h2 {
+            font-size: 24px;
+        }
+        .controls {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        select, button, input {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>🔮 Predictive Economic Insights</h2>
+    <div class="controls">
+        <select id="dataType" onchange="updateChart()">
+            <option value="gdp">GDP Growth Rate</option>
+            <option value="inflation">Inflation Rate</option>
+            <option value="stock">Stock Market Index</option>
+        </select>
+        <input type="number" id="futureYears" placeholder="Years to Predict" min="1" max="10">
+        <button onclick="predictFuture()">📈 Predict</button>
+        <button onclick="downloadChart()">📥 Download</button>
+    </div>
+    <canvas id="predictionChart"></canvas>
+</div>
+<script>
+    let economicData = {};
+    const ctx = document.getElementById('predictionChart').getContext('2d');
+    let myChart;
+
+    function loadExcelData() {
+        fetch('economic_data.xlsx')
+            .then(response => response.arrayBuffer())
+            .then(data => {
+                let workbook = XLSX.read(data, { type: 'array' });
+                let sheet = workbook.Sheets[workbook.SheetNames[0]];
+                let jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+                
+                economicData = {
+                    gdp: { labels: jsonData.slice(1).map(row => row[0]), values: jsonData.slice(1).map(row => row[1]) },
+                    inflation: { labels: jsonData.slice(1).map(row => row[0]), values: jsonData.slice(1).map(row => row[2]) },
+                    stock: { labels: jsonData.slice(1).map(row => row[0]), values: jsonData.slice(1).map(row => row[3]) }
+                };
+                updateChart();
+            });
+    }
+
+    function updateChart() {
+        if (!economicData.gdp) return;
+        let selectedData = document.getElementById('dataType').value;
+        let datasetLabel = document.getElementById('dataType').options[document.getElementById('dataType').selectedIndex].text;
+        let colors = { gdp: '#FFD700', inflation: '#FF4500', stock: '#00FF7F' };
+        
+        if (myChart) myChart.destroy();
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: economicData[selectedData].labels,
+                datasets: [{
+                    label: datasetLabel,
+                    data: economicData[selectedData].values,
+                    borderColor: colors[selectedData],
+                    backgroundColor: colors[selectedData] + '40',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { labels: { color: 'white' } } },
+                scales: {
+                    x: { ticks: { color: 'white' } },
+                    y: { ticks: { color: 'white' } }
+                }
+            }
+        });
+    }
+
+  function predictFuture() {
+    let selectedData = document.getElementById('dataType').value;
+    let futureYear = parseInt(document.getElementById('futureYears').value);
+
+    if (isNaN(futureYear) || futureYear < new Date().getFullYear()) {
+        alert("Please enter a valid future year!");
+        return;
+    }
+
+    let currentYear = new Date().getFullYear();
+    let labels = [];
+    let values = [];
+
+    let lastValue = economicData[selectedData].values.slice(-1)[0]; // Get latest value
+    let prevValue = economicData[selectedData].values.slice(-2, -1)[0]; // Get second last value
+    let rate = (lastValue - prevValue) / prevValue; // Calculate growth rate
+
+    for (let year = currentYear; year <= futureYear; year++) { 
+        labels.push(year.toString()); // Ensure years are correctly labeled
+        values.push(parseFloat(lastValue.toFixed(2)));
+        lastValue = lastValue * (1 + rate); // Apply growth rate
+    }
+
+    // Update Chart
+    myChart.data.labels = labels;
+    myChart.data.datasets[0].data = values;
+    myChart.update();
+}
+
+    
+
+    function downloadChart() {
+        let link = document.createElement('a');
+        link.href = myChart.toBase64Image();
+        link.download = 'predictive_chart.png';
+        link.click();
+    }
+
+    window.onload = loadExcelData;
+</script>
+</body>
+.
+</html>
