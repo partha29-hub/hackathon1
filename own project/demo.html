@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinInsightIndia</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background: #fff;
+            padding: 20px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .sidebar h2 {
+            color: #6a11cb;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 15px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .sidebar ul li:hover, .active {
+            background: #e0e0e0;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            flex: 1;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+        .cards {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+        .chart-container {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>FinInsightIndia</h2>
+        <ul>
+            <li class="active">Dashboard</li>
+            <li>Economic Indicators</li>
+            <li>Market Intelligence</li>
+            <li>Reports</li>
+            <li>Portfolio Analysis</li>
+            <li>Stakeholders</li>
+            <li>Settings</li>
+            <li>Help & Support</li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <input type="text" placeholder="Search for insights, reports, or data..." style="width: 60%; padding: 10px;">
+            <div>
+                <span>🔔</span>
+                <span>⚙</span>
+                <span>👤 Profile</span>
+            </div>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <h3>GDP Growth Rate</h3>
+                <p><strong>7.2%</strong></p>
+                <p style="color: green;">▲ 0.8% vs last quarter</p>
+            </div>
+            <div class="card">
+                <h3>Market Cap (Cr)</h3>
+                <p><strong>₹256,789</strong></p>
+                <p style="color: green;">▲ 12.5% vs last month</p>
+            </div>
+            <div class="card">
+                <h3>FII Investment (Cr)</h3>
+                <p><strong>₹12,456</strong></p>
+                <p style="color: red;">▼ 3.2% vs last month</p>
+            </div>
+            <div class="card">
+                <h3>Inflation Rate</h3>
+                <p><strong>5.4%</strong></p>
+                <p style="color: green;">▼ 0.6% vs last month</p>
+            </div>
+        </div>
+        <div class="chart-container">
+            <h3>GDP Growth Trend</h3>
+            <canvas id="gdpChart"></canvas>
+        </div>
+    </div>
+
+    <footer>
+        <h2>Why Choose Us?</h2>
+        <ul>
+            <li><strong>Accurate & Reliable Data:</strong> From authentic sources.</li>
+            <li><strong>User-Friendly:</strong> Simple UI for everyone.</li>
+            <li><strong>Customizable Reports:</strong> Personalized insights.</li>
+        </ul>
+        <p>&copy; 2025 FinInsightIndia. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        var ctx = document.getElementById('gdpChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: 'GDP Growth',
+                    data: [7.0, 7.3, 7.1, 7.5],
+                    borderColor: 'rgba(106, 17, 203, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Data Visualizer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        /* Dropdown & Buttons */
+        .controls {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        select, button {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        select {
+            background: #ffffff;
+            color: #333;
+        }
+
+        select:hover, button:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            background: #ff9800;
+            color: white;
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📊 Advanced Economic Data Visualizer</h2>
+    <div class="controls">
+        <select id="dataSelect" onchange="updateChart()">
+            <option value="gdp">GDP Growth Rate</option>
+            <option value="inflation">Inflation Rate</option>
+            <option value="stock">Stock Market Index</option>
+        </select>
+
+        <select id="chartType" onchange="changeChartType()">
+            <option value="line">Line Chart</option>
+            <option value="bar">Bar Chart</option>
+            <option value="pie">Pie Chart</option>
+        </select>
+
+        <button onclick="downloadChart()">📥 Download</button>
+    </div>
+    
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    // Sample Data
+    const data = {
+        gdp: { labels: ['2018', '2019', '2020', '2021', '2022'], values: [6.1, 5.8, -7.3, 8.7, 6.8] },
+        inflation: { labels: ['2018', '2019', '2020', '2021', '2022'], values: [3.4, 4.8, 6.6, 5.3, 7.1] },
+        stock: { labels: ['2018', '2019', '2020', '2021', '2022'], values: [35000, 40000, 45000, 52000, 58000] }
+    };
+
+    // Create Initial Chart
+    let chartType = 'line';
+    let myChart = new Chart(ctx, {
+        type: chartType,
+        data: {
+            labels: data.gdp.labels,
+            datasets: [{
+                label: 'GDP Growth Rate (%)',
+                data: data.gdp.values,
+                borderColor: '#FFD700',
+                backgroundColor: 'rgba(255, 215, 0, 0.3)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { labels: { color: 'white' } },
+                tooltip: { enabled: true, backgroundColor: 'rgba(255,255,255,0.9)', titleColor: '#333', bodyColor: '#333' }
+            },
+            scales: {
+                x: { ticks: { color: 'white' } },
+                y: { ticks: { color: 'white' } }
+            }
+        }
+    });
+
+    // Function to Update Chart Data
+    function updateChart() {
+        let selectedData = document.getElementById('dataSelect').value;
+        myChart.data.labels = data[selectedData].labels;
+        myChart.data.datasets[0].data = data[selectedData].values;
+        myChart.data.datasets[0].label = document.getElementById('dataSelect').options[document.getElementById('dataSelect').selectedIndex].text;
+
+        // Dynamic Colors
+        let colors = { gdp: '#FFD700', inflation: '#FF4500', stock: '#00FF7F' };
+        myChart.data.datasets[0].borderColor = colors[selectedData];
+        myChart.data.datasets[0].backgroundColor = colors[selectedData] + '40';
+
+        myChart.update();
+    }
+
+    // Function to Change Chart Type
+    function changeChartType() {
+        let newType = document.getElementById('chartType').value;
+        if (chartType !== newType) {
+            chartType = newType;
+            myChart.destroy(); // Destroy the previous chart
+            myChart = new Chart(ctx, {
+                type: chartType,
+                data: {
+                    labels: myChart.data.labels,
+                    datasets: [{
+                        label: myChart.data.datasets[0].label,
+                        data: myChart.data.datasets[0].data,
+                        backgroundColor: ['#FFD700', '#FF4500', '#00FF7F', '#3498db', '#9b59b6'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { labels: { color: 'white' } } }
+                }
+            });
+        }
+    }
+
+    // Function to Download Chart
+    function downloadChart() {
+        let link = document.createElement('a');
+        link.href = myChart.toBase64Image();
+        link.download = 'economic_chart.png';
+        link.click();
+    }
+</script>
+
+</body>
+</html>
