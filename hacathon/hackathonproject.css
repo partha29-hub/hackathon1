@@ -1,0 +1,200 @@
+/* Global Reset */
+body, h1, h2, p, ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #003366;
+    color: #fff;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    display: flex;
+}
+
+.navbar .nav-links li {
+    margin-left: 1.5rem;
+}
+
+.navbar .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.navbar .nav-links a:hover {
+    color: #FFD700;
+    transform: scale(1.1);
+}
+
+/* Theme Toggle Button */
+.theme-toggle button {
+    background-color: #FFD700;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.theme-toggle button:hover {
+    background-color: #e6c200;
+    transform: scale(1.1);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: url('path-to-background-image.jpg') no-repeat center center/cover;
+    color: black;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* Explore Insights Button */
+.hero .cta-button {
+    background-color: #2E8B57;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.hero .cta-button:hover {
+    background-color: #246b46;
+    transform: scale(1.1);
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    background-color: #fff;
+}
+
+.features .feature {
+    text-align: center;
+    width: 30%;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.features .feature:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.features .feature h2 {
+    font-size: 1.5rem;
+    color: #003366;
+}
+
+/* Dashboard */
+.dashboard-preview {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+/* Chart Container Hover */
+#chart-container {
+    width: 80%;
+    margin: 0 auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+#chart-container:hover {
+    transform: scale(1.02);
+}
+
+/* Dark Mode */
+/* Default Light Mode */
+body {
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .navbar, 
+.dark-mode .features, 
+.dark-mode .dashboard-preview {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .feature h2, 
+.dark-mode .feature p, 
+.dark-mode h1, 
+.dark-mode h2, 
+.dark-mode p, 
+.dark-mode .nav-links a {
+    color: white;
+}
+
+.dark-mode .cta-button {
+    background-color: #ff9800;
+    color: white;
+}
+
+
+/* Navbar Links Hover Effect - Underline */
+.navbar .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: #FFD700;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar .nav-links a:hover {
+    color: #FFD700;
+}
+
+.navbar .nav-links a:hover::after {
+    width: 100%;
+}

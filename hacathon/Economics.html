@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Indicators Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Economic Indicators Analysis</h1>
+    
+    <div class="section">
+        <h2>GDP Growth Trends and Sector-wise Contributions</h2>
+        <p>Analysis of GDP growth over the years and sector-wise contributions to the economy.</p>
+        <canvas id="gdpChart"></canvas>
+    </div>
+    
+    <div class="section">
+        <h2>CPI and Inflation Pattern Analysis with Predictive Forecasting</h2>
+        <p>Visualization of Consumer Price Index (CPI) and inflation trends with future predictions.</p>
+        <canvas id="inflationChart"></canvas>
+    </div>
+    
+    <div class="section">
+        <h2>Budget Allocation Comparisons Across Years and Departments</h2>
+        <p>Comparing budget allocations across different fiscal years and government sectors.</p>
+        <canvas id="budgetChart"></canvas>
+    </div>
+    
+    <div class="section">
+        <h2>Foreign Exchange Reserves and Trade Balance Implications</h2>
+        <p>Insights into foreign exchange reserves and their impact on trade balance.</p>
+        <canvas id="forexChart"></canvas>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx1 = document.getElementById('gdpChart').getContext('2d');
+        const gdpChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'GDP Growth (%)',
+                    data: [7.5, 8.0, 6.8, 7.2, 5.5, 4.0, 6.1, 6.5, 7.0, 7.2, 7.5],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            }
+        });
+        
+        const ctx2 = document.getElementById('inflationChart').getContext('2d');
+        const inflationChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Inflation Rate (%)',
+                    data: [5.1, 4.8, 3.9, 4.5, 3.2, 5.0, 6.2, 5.5, 4.8, 4.3, 4.0],
+                    backgroundColor: 'orange'
+                }]
+            }
+        });
+        
+        const ctx3 = document.getElementById('budgetChart').getContext('2d');
+        const budgetChart = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Education', 'Healthcare', 'Defense', 'Infrastructure', 'Others'],
+                datasets: [{
+                    data: [20, 25, 30, 15, 10],
+                    backgroundColor: ['red', 'blue', 'green', 'purple', 'yellow']
+                }]
+            }
+        });
+        
+        const ctx4 = document.getElementById('forexChart').getContext('2d');
+        const forexChart = new Chart(ctx4, {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Foreign Exchange Reserves (Billion $)',
+                    data: [300, 320, 350, 400, 420, 450, 470, 490, 510, 530, 550],
+                    borderColor: 'green',
+                    fill: false
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Generation - FinInsightIndia</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #141e30, #b6b8ba);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .report-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
+            text-align: left;
+        }
+
+        .chart-container {
+            background: rgba(236, 236, 236, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Report Generation Capabilities</h1>
+
+        <div class="report-box">
+            <h2>Quarterly Economic Outlook Reports</h2>
+            <p>AI-powered predictions on GDP growth, inflation rates, and sectoral performance for the upcoming quarters.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="economicOutlookChart"></canvas>
+        </div>
+
+        <div class="report-box">
+            <h2>Sector-Specific Performance & Growth</h2>
+            <p>Identifying high-performing sectors and emerging opportunities.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="sectorPerformanceChart"></canvas>
+        </div>
+
+        <div class="report-box">
+            <h2>Budget Impact Assessments</h2>
+            <p>Understanding how government budgets influence various economic sectors.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="budgetImpactChart"></canvas>
+        </div>
+
+        <div class="report-box">
+            <h2>Investment Opportunities</h2>
+            <p>Analyzing investment trends based on economic indicators.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="investmentOpportunitiesChart"></canvas>
+        </div>
+
+        <div class="report-box">
+            <h2>Customizable Reports</h2>
+            <p>Select parameters to compare economic trends over different periods.</p>
+            <select id="reportType">
+                <option value="gdp">GDP Growth</option>
+                <option value="inflation">Inflation Rate</option>
+                <option value="unemployment">Unemployment Rate</option>
+            </select>
+            <button onclick="generateCustomReport()">Generate Report</button>
+            <p id="customReportResult"></p>
+        </div>
+    </div>
+
+    <script>
+        // Quarterly Economic Outlook Chart
+        var outlookCtx = document.getElementById('economicOutlookChart').getContext('2d');
+        new Chart(outlookCtx, {
+            type: 'line',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: 'GDP Growth (%)',
+                    data: [5.5, 6.2, 6.8, 7.1],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Sector Performance Chart
+        var sectorCtx = document.getElementById('sectorPerformanceChart').getContext('2d');
+        new Chart(sectorCtx, {
+            type: 'bar',
+            data: {
+                labels: ['IT', 'Healthcare', 'Finance', 'Manufacturing', 'Energy'],
+                datasets: [{
+                    label: 'Growth (%)',
+                    data: [12, 8, 10, 7, 6],
+                    backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Budget Impact Chart
+        var budgetCtx = document.getElementById('budgetImpactChart').getContext('2d');
+        new Chart(budgetCtx, {
+            type: 'line',
+            data: {
+                labels: ['Education', 'Healthcare', 'Infrastructure', 'Defense', 'Technology'],
+                datasets: [{
+                    label: 'Budget Allocation (Billion $)',
+                    data: [200, 300, 250, 180, 220],
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Investment Opportunities Chart
+        var investmentCtx = document.getElementById('investmentOpportunitiesChart').getContext('2d');
+        new Chart(investmentCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Real Estate', 'Stock Market', 'Gold', 'Cryptocurrency'],
+                datasets: [{
+                    label: 'Investment Growth (%)',
+                    data: [15, 20, 10, 25],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Custom Report Generation
+        function generateCustomReport() {
+            var selectedReport = document.getElementById('reportType').value;
+            var resultText = "";
+
+            if (selectedReport === "gdp") {
+                resultText = "GDP growth trend shows a steady increase over recent quarters.";
+            } else if (selectedReport === "inflation") {
+                resultText = "Inflation rates have been volatile due to fluctuating economic policies.";
+            } else if (selectedReport === "unemployment") {
+                resultText = "Unemployment rates have shown a downward trend due to increased job opportunities.";
+            }
+
+            document.getElementById('customReportResult').innerText = resultText;
+        }
+    </script>
+
+</body>
+</html>

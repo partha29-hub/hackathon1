@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Reports</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .controls {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        select, button, a {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        button, a {
+            background: #ff9800;
+            color: white;
+            font-weight: 600;
+        }
+
+        .report {
+            text-align: left;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        canvas {
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📄 AI-Powered Financial Reports</h2>
+    <div class="controls">
+        <select id="reportType">
+            <option value="budget">Budget Impact Analysis</option>
+            <option value="market">Market Intelligence Report</option>
+            <option value="investment">Investment Trends</option>
+        </select>
+        <button onclick="generateReport()">📊 Generate Report</button>
+        <button onclick="downloadReport()">📥 Download PDF</button>
+    </div>
+    
+    <div class="report" id="reportContent">
+        <h3>📌 Report Title</h3>
+        <p>Select a report type and click "Generate Report" to see insights.</p>
+    </div>
+    
+    <canvas id="reportChart" width="400" height="200"></canvas>
+</div>
+
+<footer>Made with ❤ by AI-Powered Reports Team</footer>
+
+<script>
+    let reportText = "";
+
+    function generateReport() {
+        let reportType = document.getElementById('reportType').value;
+        let reportContent = document.getElementById('reportContent');
+        let title, content;
+        let chartData = [];
+
+        if (reportType === "budget") {
+            title = "📌 Budget Impact Analysis (2025)";
+            content = "The latest budget policy is expected to boost infrastructure spending by 12%, leading to an estimated GDP growth increase of 1.5% over the next two years.";
+            chartData = [12, 1.5, 4.3, 8.2, 6.1];
+        } else if (reportType === "market") {
+            title = "📌 Market Intelligence Report (2025)";
+            content = "Stock markets have shown a bullish trend with the NIFTY 50 index rising by 8% this quarter.";
+            chartData = [8, 12, 15, 10, 9];
+        } else if (reportType === "investment") {
+            title = "📌 Investment Trends & Forecast (2025)";
+            content = "AI-driven analytics predict a surge in renewable energy investments, particularly in solar and wind energy.";
+            chartData = [5, 8, 12, 15, 20];
+        }
+
+        reportText = `${title}\n\n${content}`;
+        reportContent.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
+        renderChart(chartData);
+    }
+
+    function renderChart(data) {
+        let ctx = document.getElementById('reportChart').getContext('2d');
+        if (window.chartInstance) {
+            window.chartInstance.destroy();
+        }
+        window.chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Q1", "Q2", "Q3", "Q4", "Q5"],
+                datasets: [{
+                    label: "Growth Trends",
+                    data: data,
+                    backgroundColor: 'rgba(255, 152, 0, 0.6)'
+                }]
+            }
+        });
+    }
+
+    function downloadReport() {
+        let { jsPDF } = window.jspdf;
+        let doc = new jsPDF();
+        let canvas = document.getElementById('reportChart');
+        let chartImage = canvas.toDataURL('image/png');
+
+        doc.setFontSize(14);
+        doc.text(reportText, 10, 10);
+        doc.addImage(chartImage, 'PNG', 10, 40, 180, 100);
+        doc.save("AI_Powered_Report.pdf");
+    }
+</script>
+
+</body>
+</html>

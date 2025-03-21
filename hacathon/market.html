@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Intelligence - FinInsightIndia</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #141e30, #b6b8ba);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .chart-container {
+            background: rgba(236, 236, 236, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
+            height: 400px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Market Intelligence</h1>
+
+        <div class="info-box">
+            <h2>Stock Market Correlation with Economic Events</h2>
+            <p>Analyzing how major economic events such as policy changes, inflation rates, and GDP growth impact stock market trends.</p>
+        </div>
+        
+        <div class="chart-container">
+            <canvas id="stockMarketChart"></canvas>
+        </div>
+
+        <div class="info-box">
+            <h2>Sector-wise Market Capitalization & Growth</h2>
+            <p>Comparing different industry sectors based on market capitalization and tracking their growth over time.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="sectorGrowthChart"></canvas>
+        </div>
+
+        <div class="info-box">
+            <h2>Interest Rate Impact on Economic Segments</h2>
+            <p>Visualizing how changes in interest rates affect industries like real estate, banking, and manufacturing.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="interestRateImpactChart"></canvas>
+        </div>
+
+        <div class="info-box">
+            <h2>Investment Flow Patterns (FDI/FII)</h2>
+            <p>Tracking Foreign Direct Investment (FDI) and Foreign Institutional Investment (FII) trends and their implications on the economy.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="investmentFlowChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Stock Market vs Economic Events Chart
+        var stockMarketCtx = document.getElementById('stockMarketChart').getContext('2d');
+        new Chart(stockMarketCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Stock Market Index',
+                    data: [120, 140, 180, 160, 200, 230],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Sector-wise Market Capitalization Chart
+        var sectorCtx = document.getElementById('sectorGrowthChart').getContext('2d');
+        new Chart(sectorCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Technology', 'Healthcare', 'Finance', 'Energy', 'Consumer Goods'],
+                datasets: [{
+                    label: 'Market Cap (in Billion $)',
+                    data: [1500, 1200, 1100, 900, 800],
+                    backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Interest Rate Impact Chart
+        var interestRateCtx = document.getElementById('interestRateImpactChart').getContext('2d');
+        new Chart(interestRateCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [
+                    {
+                        label: 'Real Estate',
+                        data: [90, 85, 80, 75, 70, 65],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2,
+                        fill: true
+                    },
+                    {
+                        label: 'Banking',
+                        data: [80, 100, 120, 140, 160, 180],
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderWidth: 2,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Investment Flow Chart (FDI & FII)
+        var investmentCtx = document.getElementById('investmentFlowChart').getContext('2d');
+        new Chart(investmentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['FDI', 'FII'],
+                datasets: [{
+                    label: 'Investment Flow (in Billion $)',
+                    data: [500, 700],
+                    backgroundColor: ['#ff6384', '#36a2eb'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+
+</body>
+</html>
